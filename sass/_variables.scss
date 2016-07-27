@@ -1,0 +1,51 @@
+/*
+ * App Brand Color
+*/
+$dd: hsla(199, 20%, 60%, 1); //85a0ad
+
+
+/*
+ * Desaturated Spectrum
+*/
+$red: hsla(345, 60%, 70%, 1); //d98c9f
+$ong: hsla(28, 60%, 70%, 1); //d9b08c
+$yel: hsla(56, 60%, 70%, 1); //d9d48c
+$grn: hsla(90, 60%, 70%, 1); //5ad48c
+//$blu: hsla(220, 60%, 70%, 1); //8ca6d9
+$ppl: hsla(285, 60%, 70%, 1); //c68cd9
+
+
+/*
+ * Blacks
+*/
+$black: hsla(0, 0%, 10%, 1); //1a1a1a
+$deepblack: darken($black, 4%); //0f0f0f
+$pitchblack: darken($black, 10%); //000000
+$blacklite: lighten($black, 19%); //4a4a4a
+
+
+/*
+ * Whites
+*/
+$white: hsla(0, 0%, 96%, 1); //f5f5f5
+$whitedim: hsla(0, 0%, 96%, .5);
+$reddim: transparentize($red, .75);
+
+
+/*
+ * Specifics
+*/
+$header: 50px;
+$footer: $header/2;
+$main: calc(100% - (#{$header} + #{$footer}));
+//$key: $yel;
+//$comp: complement(transparentize($key, .65)); //transparent complement to key
+$panel: 300px;
+$spacer: 6em;
+
+@mixin anim($prop){
+    transition: $prop 150ms ease-out;
+}
+@mixin whitespace($diff) {
+    margin: 4em 0 ($spacer - $diff);
+}

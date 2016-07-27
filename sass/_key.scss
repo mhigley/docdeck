@@ -1,0 +1,26 @@
+body {
+    &.bc1 {
+        a {color: $grn;}
+        .course {background-color: $grn;}
+        blockquote::before, blockquote::after {background-color: $grn;}
+        aside li.slick-active {color: $grn;}
+        aside > div:last-of-type div:last-of-type a:hover {color: $grn;}
+        .tryit {background-color: complement(transparentize($grn, .65)); border: 1px solid lighten(complement(transparentize($grn, .65)), 5);}
+    }
+    &.bc2 {
+        a {color: $red;}
+        .course {background-color: $red;}
+        blockquote::before, blockquote::after {background-color: $red;}
+        aside li.slick-active {color: $red;}
+        aside > div:last-of-type div:last-of-type a:hover {color: $red;}
+        .tryit {background-color: complement(transparentize($red, .65)); border: 1px solid lighten(complement(transparentize($red, .65)), 5);}
+    }
+    &.js1 {
+        a {color: $yel;}
+        .course {background-color: $yel;}
+        blockquote::before, blockquote::after {background-color: $yel;}
+        aside li.slick-active {color: $yel;}
+        aside > div:last-of-type div:last-of-type a:hover {color: $yel;}
+        .tryit {background-color: complement(transparentize($yel, .65)); border: 1px solid lighten(complement(transparentize($yel, .65)), 5);}
+    }
+}

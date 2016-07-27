@@ -1,0 +1,466 @@
+@import "variables";
+@import "reset";
+@import "fontawesome";
+@import 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600';
+@import 'https://fonts.googleapis.com/css?family=Cutive+Mono';
+@import "key";
+
+/* sass goes here */
+
+html {background-color: black;}
+
+button:focus, section {outline: none;}
+
+a {
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    font-family: 'open sans', sans-serif;
+    font-weight: 600;
+}
+h4 {
+    font-weight: 400;
+    color: $dd;
+    margin-top: $spacer;
+}
+hr {
+    margin: 4em 0;
+    border: 1px solid $whitedim;
+}
+p {
+    margin-bottom: 2em;
+}
+iframe {
+    @include whitespace(4em);
+    border: 1px solid #5a5a5a !important;
+}
+article > iframe {
+    max-height: 500px !important;
+}
+h4.inline {
+    display: inline-block;
+}
+h4.block, h4.inline {
+    background-color: transparentize($dd, .75);
+}
+
+.logout {
+    height: 27px;
+    padding: 0 5px;
+    margin-left: 15px;
+    border-radius: 4px;
+    line-height: 27px;
+    color: $white !important;
+    i {
+        text-align: center;
+        margin: 0;
+        font-size: 78%;
+    }
+}
+
+/*
+ * Course Select styles
+*/
+div.course-select {
+    position: absolute;
+    z-index: 9999;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: transparentize($pitchblack, .25);
+    .content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 50%;
+        background-color: $black;
+        border: 1px solid $pitchblack;
+        padding: 50px;
+        box-shadow: 0 0 30px -5px $whitedim;
+        transform: translate3d(-50%, -50%, 0);
+    }
+    h1 span {color: $dd;}
+    form {
+        font-size: 1.25em;
+        display: flex;
+        flex-direction: column;
+        alignt-items: flex-start;
+        label {margin-bottom: 20px;}
+        //label:last-of-type {margin: 0;}
+        /*
+         * Radio button styling instructions:
+         * http://code.stephenmorley.org/html-and-css/styling-checkboxes-and-radio-buttons/
+        */
+        input[type=radio]:not(old){
+            width     : 2em;
+            margin    : 0;
+            padding   : 0;
+            font-size : 1em;
+            opacity   : 0;
+        }
+        label input[type=radio]:not(old),
+        input[type=radio]:not(old) + label{
+            display      : inline-block;
+            margin-left  : -2em;
+            line-height  : 1.5em;
+        }
+        label input[type=radio]:not(old) + span,
+        input[type=radio]:not(old) + label > span{
+            display          : inline-block;
+            width            : 0.875em;
+            height           : 0.875em;
+            margin           : 0.25em 0.5em 0.25em 0.25em;
+            border           : 0.0625em solid rgb(192,192,192);
+            border-radius    : 0.15em;
+            background       : rgb(224,224,224);
+            background-image : linear-gradient(rgb(240,240,240),rgb(224,224,224));
+            vertical-align   : bottom;
+        }
+        label input[type=radio]:not(old):disabled,
+        input[type=radio]:not(old):disabled + label{
+            color: $whitedim;
+        }
+        label input[type=radio]:not(old):disabled + span,
+        input[type=radio]:not(old):disabled + label > span{
+            border           : 0.0625em solid darken($whitedim, 85);
+            background-image : linear-gradient(darken($whitedim, 50), darken($whitedim, 80));
+        }
+        label input[type=radio]:not(old):checked + span,
+        input[type=radio]:not(old):checked + label > span{
+            background-image : linear-gradient(rgb(224,224,224),rgb(240,240,240));
+        }
+        label input[type=radio]:not(old):checked + span > span,
+        input[type=radio]:not(old):checked + label > span > span{
+            display          : block;
+            width            : 0.5em;
+            height           : 0.5em;
+            margin           : 0.125em;
+            border           : 0.0625em solid darken($dd, 10);
+            border-radius    : 0.1em;
+            background       : $dd;
+        }
+        input[type=submit]{
+            background-color: $dd;
+            border: 1px solid darken($dd, 10);
+            padding: 5px 10px;
+            margin-left: 10px;
+            border-radius: 2px;
+        }
+    }
+}
+
+/*
+ * Course icon styles
+*/
+.course {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 2px 5px;
+    //background-color: $key;
+    width: 50px;
+    height: 50px;
+    color: $pitchblack;
+    font-weight: 600;
+    letter-spacing: -1px;
+    box-sizing: border-box;
+    h1 {
+        font-size: 1.2rem;
+    }
+}
+
+/*
+ * Figure / Figcaption styles
+*/
+.figure {
+    @include whitespace(4em);
+    display: inline-block;
+    padding: 10px;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAOUlEQVQYV2NkQAJZWVn/p02bxogsBudgkwQpBCvAJQlWgE8SbgKynehuQnEQNgdjVYBsLYYCdDcBAKGJHkaYb4KqAAAAAElFTkSuQmCC');
+    figure {
+        display: table;
+        margin: 0;
+        padding: 0 0 10px;
+    }
+    img {
+        display: block;
+        width: 100%;
+        border: 1px solid $blacklite;
+        box-sizing: border-box;
+    }
+    figcaption {
+        box-sizing: border-box;
+        display: table-caption;
+        caption-side: bottom;
+        background-color: $blacklite;
+        margin: 0;
+        padding: 10px;
+    }
+}
+
+/*
+ * Ordered / Unordered List styles
+*/
+ul, ol {
+    padding: 0;
+    margin: ($spacer / 2) 0;
+    ul, ol {
+        padding-left: 40px;
+        margin: 0;
+    }
+}
+ul {list-style-position: inside;}
+ol, aside ul {
+    counter-reset: numbering;
+    li {display: block;}
+    li:before {
+        content: counters(numbering, '.') '. ';
+        counter-increment: numbering;
+    }
+}
+
+/*
+ * Blockquote styles
+*/
+blockquote {
+    @include whitespace(0);
+    padding: 20px;
+    background-color: $blacklite;
+    box-shadow: border-box;
+    position: relative;
+    &::before {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 1px;
+        //background-color: $key;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    &::after {
+        content: "\f0eb";
+        display: block;
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-align: center;
+        line-height: 50px;
+        width: 50px;
+        height: 50px;
+        font-size: 2em;
+        /*background-color: $key;*/
+        border-radius: 100%;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0);
+        color: $black;
+    }
+    &.quote {
+        padding-left: 80px;
+    }
+    &.quote::before {
+        width: 3px;
+        height: 100%;
+    }
+    &.quote::after {
+        content: "\f10d";
+        background-color: transparent !important;
+        top: 20px;
+        left: 20px;
+        color: $white;
+        transform: none;
+    }
+    &.quote cite {
+        display: block;
+        margin-top: 2em;
+    }
+    iframe {display: block;margin-left:auto;margin-right:auto;}
+    iframe,
+    p:last-of-type,
+    code.block:last-of-type {margin-bottom: 0;}
+}
+
+/*
+ * Codeblock styles
+*/
+code {
+    font-family: 'Cutive Mono', mono;
+    letter-spacing: 0;
+    background-color: $black;
+    border: 1px solid $pitchblack;
+    padding: 10px;
+    &.block {
+        display: block;
+        @include whitespace(0);
+    }
+    &.inline {
+        display: inline-block;
+        padding: 0 5px;
+    }
+    pre {margin: 0;font-family: inherit;white-space: pre-wrap;}
+}
+
+/*
+ * TryIt styles
+*/
+.tryit {
+    @include whitespace(0);
+    padding: 20px;
+    //background-color: $comp;
+    //border: 1px solid lighten($comp, 5%);
+    box-shadow: border-box;
+}
+
+#asideToggle {
+    top: 20px;
+}
+.btn {
+    position: absolute;
+    z-index: 100;
+    width: 35px;
+    height: 35px;
+    border: 1px solid $deepblack;
+    background-color: $black;
+    color: $white;
+}
+
+.asideToggle {
+    display: none;
+}
+
+html, body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'open sans', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.5;
+    letter-spacing: .5px;
+    overflow: hidden;
+    color: $white;
+    position: relative;
+}
+header, footer {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+}
+header {
+    height: $header;
+    background-color: $black;
+    color: $white;
+    * {margin: 0 5px 0 0;}
+    span {color: $dd;}
+    img {
+        width: 30px;
+        height: auto;
+    }
+    h1 {font-size: 1.25em;}
+    h3 {
+        font-size: 1.05em;
+        margin-left: auto;
+        font-weight: 400;
+    }
+    p {margin: 1em 0;}
+}
+aside {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: $main;
+    margin-top: $header;
+    position: absolute;
+    z-index: 101;
+    top: 0;
+    background-color: lighten(#2a2a2a, 2%);
+    padding: 50px 20px 20px;
+    box-sizing: border-box;
+    box-shadow: 5px 0 10px -5px $pitchblack;
+    ul {list-style: none;margin: 20px 0 0;}
+    li {cursor: pointer;}
+    li:hover {color: $whitedim;}
+    //li.slick-active {color: $key;}
+    hr {margin: 10px 0 0;}
+    > div:last-of-type {
+        margin-top: auto;
+        display: flex;
+        flex-direction: column;
+        .course {margin-left: auto;}
+        div:last-of-type {
+            display: flex;
+            justify-content: space-between;
+            a {color: $white; cursor: pointer;}
+            //a:hover {color: $key;}
+            a.disabled {color: $whitedim !important;cursor: default;text-decoration: none;}
+        }
+    }
+}
+main {
+    background-color: #2a2a2a;
+    height: $main;
+    overflow-y: scroll; /* has to be scroll, not auto */
+    -webkit-overflow-scrolling: touch;
+    article {
+        padding: 50px 50px 150px;
+    }
+}
+footer {
+    font-size: .65em;
+    height: $footer;
+    background-color: $deepblack;
+    color: transparentize($white, .35);
+    p {margin: 0;}
+    span {color: $dd;}
+    i.fa {color: $red;}
+}
+.sections {
+    position: static;
+    .btn {top: 50%;}
+    button:last-of-type {transition: transform 250ms ease-out; right: 0;}
+
+    button.slick-disabled:first-of-type {transform: translate3d(-100%, 0, 0)}
+    button.slick-disabled:last-of-type {transform: translate3d(100%, 0, 0)}
+}
+
+/*
+ * Panel animation styles
+*/
+body {
+    aside {@include anim(left);left: -$panel;}
+    #asideToggle {@include anim(right);right: -35px;}
+    main {@include anim(padding-left);padding-left: 0px;}
+    .sections button:first-of-type {transition: transform 250ms ease-out, left 150ms ease-out; left: 0;}
+}
+body.padify {
+    aside {left: 0px;}
+    #asideToggle {right: 0px;}
+    main {padding-left: $panel;}
+    .sections button:first-of-type {left: $panel;}
+}
+
+
+@media screen and (max-width: 768px){
+    header {
+        p:last-of-type, h3 {display: none;}
+    }
+    body, body.padify {
+        aside {display: none; left: 0px;}
+        #asideToggle {display: none; right: 0px;}
+        main {height: calc(100% - #{$header}); padding-left: 0px;}
+        .sections button:first-of-type {left: 0;}
+    }
+    footer {display: none;}
+}
