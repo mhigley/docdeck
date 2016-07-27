@@ -3566,7 +3566,7 @@ header {
 header * {
   margin: 0 5px 0 0;
 }
-header span {
+header h1 span {
   color: #85a0ad;
 }
 header img {
@@ -3575,14 +3575,25 @@ header img {
 }
 header h1 {
   font-size: 1.25em;
+  margin: 0;
 }
 header h3 {
   font-size: 1.05em;
-  margin-left: auto;
   font-weight: 400;
 }
+header > span {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+      align-items: center;
+  margin: 0 0 0 auto;
+}
+header > span:first-of-type,
+header > span:last-of-type {
+  margin: 0;
+}
 header p {
-  margin: 1em 0;
+  margin: 0;
 }
 
 aside {
@@ -3638,6 +3649,9 @@ aside > div:last-of-type div:last-of-type a.disabled {
   color: rgba(245, 245, 245, 0.5) !important;
   cursor: default;
   text-decoration: none;
+}
+aside > div:last-of-type div:last-of-type span {
+  display: none;
 }
 
 main {
@@ -3717,19 +3731,20 @@ body.padify .sections button:first-of-type {
   left: 300px;
 }
 
-@media screen and (max-width: 768px) {
-  header p:last-of-type, header h3 {
+@media screen and (max-width: 61.9em) {
+  .md-hide {
     display: none;
   }
 
-  body aside, body.padify aside {
-    display: none;
-    left: 0px;
+  header > span:last-of-type {
+    margin: 0 0 0 auto;
   }
-  body #asideToggle, body.padify #asideToggle {
+}
+@media screen and (max-width: 47.9em) {
+  .sm-hide {
     display: none;
-    right: 0px;
   }
+
   body main, body.padify main {
     height: calc(100% - 50px);
     padding-left: 0px;
@@ -3738,7 +3753,56 @@ body.padify .sections button:first-of-type {
     left: 0;
   }
 
+  aside {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    height: 50px;
+    padding: 0;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+        justify-content: center;
+    box-shadow: 0 5px 10px -5px black;
+  }
+  aside #asideToggle, aside .navigation, aside > div:last-of-type .course, aside hr {
+    display: none;
+  }
+  aside > div:last-of-type {
+    -ms-flex: 1;
+        flex: 1;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  aside > div:last-of-type div:last-of-type {
+    -ms-flex: 1;
+        flex: 1;
+    -ms-flex-align: center;
+        -ms-grid-row-align: center;
+        align-items: center;
+    padding: 0 30px;
+  }
+  aside > div:last-of-type div:last-of-type span {
+    display: inline;
+  }
+
   footer {
+    display: none;
+  }
+
+  div.course-select .content {
+    width: 65%;
+    padding: 30px;
+  }
+  div.course-select h1 {
+    font-size: 140%;
+  }
+  div.course-select p span {
+    display: none;
+  }
+}
+@media screen and (max-width: 33.9em) {
+  header > span:first-of-type {
     display: none;
   }
 }

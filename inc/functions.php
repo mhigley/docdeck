@@ -55,11 +55,22 @@
         */
 
         $thisDay = explode(".", $thisPage);
+        $thisDay = explode("_", $thisDay[0]);
         /*  $thisDay =>
                 1. Split current page into array (explode)
+                    - $thisDay[0] = Digit
+                    - $thisDay[1] = Lesson
+                    - $thisDay[2] = Title
         */
 
-        $thisLesson = substr($thisDay[0], 6);
+        // echo '<pre>';
+        //     var_dump($thisPage);
+        //     var_dump($thisDay);
+        // echo '</pre>';
+        // die();
+
+        //$thisLesson = substr($thisDay[0], 6);
+        $thisLesson = str_replace("-", " ", $thisDay[2]);
         /*  $thisLesson =>
                 1. Abstract lesson number from current page (substr)
         */
@@ -76,6 +87,8 @@
                 if($page == '.' || $page == '..' || substr($page, -strlen(".DS_Store")) === ".DS_Store") continue;
                 array_push($pageArr, $page);
             }
+            natsort($pageArr);
+            $pageArr = array_values($pageArr);
         }
         /*  $pageArr =>
             1. Get page directory ($pageDir)

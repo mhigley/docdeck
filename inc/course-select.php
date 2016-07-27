@@ -2,7 +2,7 @@
     <div class="content">
         <h1>Welcome to the Geekwise Doc<span>Deck</span>!</h1>
         <p>
-            Please take a moment to select the course you are enrolled in. This will set a cookie in your browser and you won't have to select again. If you <strong>do</strong> need to change documentation, click the logout button from within the app and you can select your course again. Happy coding and enjoy your class!!
+            Please take a moment to select the course you are enrolled in. <span>This will set a cookie in your browser and you won't have to select again. If you <strong>do</strong> need to change documentation, click the logout button from within the app and you can select your course again. Happy coding and enjoy your class!!</span>
         </p>
         <form class="deck-select">
 
@@ -21,7 +21,7 @@
                 <span><span></span></span>Javascript 1
             </label>
 
-            <input type="submit" onclick="getCourse(event)" name="submit" value="Check out the Docs!">
+            <input type="submit" onclick="getCourse(event)" name="submit" value="Let's Go!">
         </form>
         <span id="warn"></span>
     </div>

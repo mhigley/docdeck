@@ -10,16 +10,16 @@
         <div>
             <?php
                 if($uri === '/' || $uri === '/index.php'){
-                    echo '<a class="paginate disabled"><i class="fa fa-caret-left"></i> prev</a>';
-                    echo '<a class="paginate disabled">next <i class="fa fa-caret-right"></i></a>';
+                    echo '<a class="paginate disabled"><i class="fa fa-caret-left"></i> prev<span> lesson</span></a>';
+                    echo '<a class="paginate disabled">next<span> lesson</span> <i class="fa fa-caret-right"></i></a>';
                 }else{
                     echo($thisPage === $pageArr[0])
-                        ? '<a class="paginate disabled"><i class="fa fa-caret-left"></i> prev</a>'
-                        : '<a class="paginate" href="/'.$thisDir.'/'.$pageArr[$pageKey-1].'"><i class="fa fa-caret-left"></i> prev</a>';
+                        ? '<a class="paginate disabled"><i class="fa fa-caret-left"></i> prev<span> lesson</span></a>'
+                        : '<a class="paginate" href="/'.$thisDir.'/'.$pageArr[$pageKey-1].'"><i class="fa fa-caret-left"></i> prev<span> lesson</span></a>';
 
                     echo($thisPage === $lastPage)
-                        ? '<a class="paginate disabled">next <i class="fa fa-caret-right"></i></a>'
-                        : '<a href="'.$pageArr[$pageKey+1].'" class="paginate">next <i class="fa fa-caret-right"></i></a>';
+                        ? '<a class="paginate disabled">next<span> lesson</span> <i class="fa fa-caret-right"></i></a>'
+                        : '<a href="'.$pageArr[$pageKey+1].'" class="paginate">next<span> lesson</span> <i class="fa fa-caret-right"></i></a>';
                 }
             ?>
         </div>

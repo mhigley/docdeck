@@ -15,7 +15,19 @@ function getCourse(e){
         if(this.checked === true){
             var course = $('.deck-select').serialize();
             course = course.split('=').join('-');
-            course += '/lesson01.php';
+            switch(course){
+                case 'course-bc1':
+                    course += '/01-01_lesson01_Intro-to-HTML.php';
+                    break;
+                case 'course-bc2':
+                    course += '/01-01_lesson01_??';
+                    break;
+                case 'course-js1':
+                    course += '/01-01_lesson01_Intro-to-Javascript.php';
+                    break;
+                default:
+                    course += 'Good luck if this ever proves true. You\'ve screwed the pooch then!';
+            }
 
             window.location.replace(course);
         }else{
@@ -63,7 +75,7 @@ $btn.on('click', function(){
 
 $('.logout').on('click', function(){
     eraseCookie('page');
-    window.location.replace('http://demo.matthewhigley.com/');
+    window.location.replace('http://docdeck.matthewhigley.com/');
     //window.location.replace('http://localhost/');
 });
 

@@ -363,18 +363,26 @@ header {
     background-color: $black;
     color: $white;
     * {margin: 0 5px 0 0;}
-    span {color: $dd;}
+    h1 span {color: $dd;}
     img {
         width: 30px;
         height: auto;
     }
-    h1 {font-size: 1.25em;}
+    h1 {font-size: 1.25em;margin: 0;}
     h3 {
         font-size: 1.05em;
-        margin-left: auto;
         font-weight: 400;
     }
-    p {margin: 1em 0;}
+    > span {
+        display: flex;
+        align-items: center;
+        margin: 0 0 0 auto;
+    }
+    > span:first-of-type,
+    > span:last-of-type {
+        margin: 0;
+    }
+    p {margin: 0;}
 }
 aside {
     display: flex;
@@ -405,6 +413,7 @@ aside {
             a {color: $white; cursor: pointer;}
             //a:hover {color: $key;}
             a.disabled {color: $whitedim !important;cursor: default;text-decoration: none;}
+            span {display: none;}
         }
     }
 }
@@ -451,16 +460,51 @@ body.padify {
     .sections button:first-of-type {left: $panel;}
 }
 
+@media screen and (max-width: 61.9em){
+    .md-hide {display: none;}
+    header > span:last-of-type {margin: 0 0 0 auto;}
+}
 
-@media screen and (max-width: 768px){
-    header {
-        p:last-of-type, h3 {display: none;}
-    }
+@media screen and (max-width: 47.9em){
+    .sm-hide {display: none;}
     body, body.padify {
-        aside {display: none; left: 0px;}
-        #asideToggle {display: none; right: 0px;}
         main {height: calc(100% - #{$header}); padding-left: 0px;}
         .sections button:first-of-type {left: 0;}
     }
+    aside {
+        position: relative;
+        width: 100%;
+        margin: 0;
+        height: 50px;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        box-shadow: 0 5px 10px -5px black;
+        #asideToggle, .navigation, > div:last-of-type .course, hr {
+            display: none;
+        }
+        > div:last-of-type {
+            flex: 1;
+            display: flex;
+            div:last-of-type {
+                flex: 1;
+                align-items: center;
+                padding: 0 30px;
+                span {display: inline;}
+            }
+        }
+    }
     footer {display: none;}
+    div.course-select {
+        .content {
+            width: 65%;
+            padding: 30px;
+        }
+        h1 {font-size: 140%;}
+        p span {display: none;}
+    }
+}
+
+@media screen and (max-width: 33.9em) {
+    header > span:first-of-type {display: none;}
 }
