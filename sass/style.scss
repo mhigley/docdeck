@@ -1,6 +1,5 @@
 @import "variables";
 @import "reset";
-@import "fontawesome";
 @import 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600';
 @import 'https://fonts.googleapis.com/css?family=Cutive+Mono';
 @import "key";
@@ -51,14 +50,58 @@ h4.block, h4.inline {
 .logout {
     height: 27px;
     padding: 0 5px;
-    margin-left: 15px;
+    margin-left: 10px;
     border-radius: 4px;
     line-height: 27px;
     color: $white !important;
     i {
         text-align: center;
         margin: 0;
-        font-size: 78%;
+        line-height: inherit;
+        font-size: 115%;
+    }
+}
+
+/*
+ * Chapter Select Dropdown styles
+*/
+#chapter-nav {
+    display: inline-block;
+    position: relative;
+    select {
+        position: relative;
+        z-index: 1;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-color: transparent;
+        color: hsla(0, 0%, 96%, 1);
+        border: none;
+        font-size: inherit;
+        font-family: inherit;
+        padding-right: 20px;
+        outline: none;
+        height: 30px;
+        line-height: 30px;
+    }
+    select, select:-moz-focusring {
+        color: hsla(0, 0%, 96%, 1);
+        color: transparent;
+        text-shadow: 0 0 0 hsla(0, 0%, 96%, 1);
+    }
+    option {
+        padding: 0;
+        height: 30px;
+        line-height: 30px;
+    }
+    i.material-icons {
+        position: absolute;
+        top: 0;
+        right: 5px;
+        z-index: 0;
+        opacity: .5;
+        height: 30px;
+        line-height: 30px;
     }
 }
 
@@ -72,16 +115,22 @@ div.course-select {
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: transparentize($pitchblack, .25);
+    background-color: transparentize($pitchblack, .45);
     .content {
         position: absolute;
         top: 50%;
         left: 50%;
         width: 50%;
-        background-color: $black;
+        /*background-color: $black;
         border: 1px solid $pitchblack;
         padding: 50px;
-        box-shadow: 0 0 30px -5px $whitedim;
+        box-shadow: 0 0 30px -5px $whitedim;*/
+
+        background-color: hsla(0, 0%, 21%, 1);
+        border: 1px solid hsla(0, 0%, 0%, .25);
+        padding: 20px;
+        box-shadow: 0 0 10px 0 hsla(0, 0%, 0%, .5);
+
         transform: translate3d(-50%, -50%, 0);
     }
     h1 span {color: $dd;}
@@ -90,7 +139,8 @@ div.course-select {
         display: flex;
         flex-direction: column;
         alignt-items: flex-start;
-        label {margin-bottom: 20px;}
+        label {margin-bottom: 10px;}
+        label:last-of-type {margin-bottom: 30px;}
         //label:last-of-type {margin: 0;}
         /*
          * Radio button styling instructions:
@@ -115,7 +165,7 @@ div.course-select {
             width            : 0.875em;
             height           : 0.875em;
             margin           : 0.25em 0.5em 0.25em 0.25em;
-            border           : 0.0625em solid rgb(192,192,192);
+            /*border           : 0.0625em solid rgb(192,192,192);*/
             border-radius    : 0.15em;
             background       : rgb(224,224,224);
             background-image : linear-gradient(rgb(240,240,240),rgb(224,224,224));
@@ -127,7 +177,7 @@ div.course-select {
         }
         label input[type=radio]:not(old):disabled + span,
         input[type=radio]:not(old):disabled + label > span{
-            border           : 0.0625em solid darken($whitedim, 85);
+            /*border           : 0.0625em solid darken($whitedim, 85);*/
             background-image : linear-gradient(darken($whitedim, 50), darken($whitedim, 80));
         }
         label input[type=radio]:not(old):checked + span,
@@ -137,10 +187,10 @@ div.course-select {
         label input[type=radio]:not(old):checked + span > span,
         input[type=radio]:not(old):checked + label > span > span{
             display          : block;
-            width            : 0.5em;
-            height           : 0.5em;
+            width            : 0.6em;
+            height           : 0.6em;
             margin           : 0.125em;
-            border           : 0.0625em solid darken($dd, 10);
+            /*border           : 0.0625em solid darken($dd, 10);*/
             border-radius    : 0.1em;
             background       : $dd;
         }
@@ -322,7 +372,10 @@ code {
 }
 
 #asideToggle {
-    top: 20px;
+    top: 0;
+}
+#asideToggle i.material-icons {
+    line-height: 33px;
 }
 .btn {
     position: absolute;
@@ -346,7 +399,7 @@ body {
     padding: 0;
     font-family: 'open sans', sans-serif;
     font-weight: 300;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 1.5;
     letter-spacing: .5px;
     overflow: hidden;
@@ -373,10 +426,11 @@ header {
         font-size: 1.05em;
         font-weight: 400;
     }
+    #chapter-nav {margin-right: auto;}
     > span {
         display: flex;
         align-items: center;
-        margin: 0 0 0 auto;
+        //margin: 0 0 0 auto;
     }
     > span:first-of-type,
     > span:last-of-type {
@@ -394,7 +448,7 @@ aside {
     z-index: 101;
     top: 0;
     background-color: lighten(#2a2a2a, 2%);
-    padding: 50px 20px 20px;
+    padding: 20px 20px 20px;
     box-sizing: border-box;
     box-shadow: 5px 0 10px -5px $pitchblack;
     ul {list-style: none;margin: 20px 0 0;}
@@ -410,10 +464,11 @@ aside {
         div:last-of-type {
             display: flex;
             justify-content: space-between;
-            a {color: $white; cursor: pointer;}
+            a {color: $white; cursor: pointer;display: flex;align-items: center;justify-content: center;}
+            a i {font-size: 101%;}
             //a:hover {color: $key;}
             a.disabled {color: $whitedim !important;cursor: default;text-decoration: none;}
-            span {display: none;}
+            //span {display: none;}
         }
     }
 }
@@ -423,7 +478,7 @@ main {
     overflow-y: scroll; /* has to be scroll, not auto */
     -webkit-overflow-scrolling: touch;
     article {
-        padding: 50px 50px 150px;
+        padding: 20px 50px 150px;
     }
 }
 footer {
@@ -433,7 +488,9 @@ footer {
     color: transparentize($white, .35);
     p {margin: 0;}
     span {color: $dd;}
-    i.fa {color: $red;}
+    i.fa {font-size: 123%;}
+    i:first-of-type.fa {color: white;}
+    i:last-of-type.fa {color: $red;}
 }
 .sections {
     position: static;

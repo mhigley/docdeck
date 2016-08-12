@@ -2,116 +2,98 @@
     ob_start();
     error_reporting(E_ALL); ini_set('display_errors', 1);
     date_default_timezone_set("America/Los_Angeles");
-
-    $docRoot = $_SERVER['DOCUMENT_ROOT'];
-    $uri = $_SERVER['REQUEST_URI'];
-
-    $thisDir = array_slice(explode('/', $uri), 1)[0];
-    /*  $thisDir =>
-        1. Abstract current directory from URL (array_slice)
-    */
-
-    switch($thisDir){
-        case 'course-bc1':
-            $thisCourse = 'Bootcamp 1';
-            break;
-        case 'course-bc2':
-            $thisCourse = 'Bootcamp 2';
-            break;
-        case 'course-js1':
-            $thisCourse = 'Javascript 1';
-            break;
-        default:
-            $thisCourse = 'Geekwise Course';
-    }
-    /*  $thisCourse =>
-            1. Check and compare $thisPage to get course (switch)
-    */
-
-    $thisCourseCompressed = str_replace(' ', '', strtolower($thisCourse));
-    /*  $thisCourseCompressed =>
-            1. Lowercase title of course (strtolower)
-            2. Remove all spaces (str_replace)
-    */
-
-    $thisCourseAbbreviation = substr($thisDir, 7);
-    /*  $thisCourseAbbreviation =>
-            1. Get the selected course abbreviation (substr)
-    */
-
-    $cookie_name = 'page';
-    $cookie_val = $uri;
-
-    if($uri === '/' || $uri === '/index.php'){
-        if(isset($_COOKIE[$cookie_name])) {
-            header('LOCATION: '.$_COOKIE[$cookie_name]);
-        }
-    }else{
-        setcookie($cookie_name, $cookie_val, time() + (86400 * 30), "/");
-
-        $thisPage = array_slice(explode('/', $uri), 1)[1];
-        /*  $thisPage =>
-            1. Abstract current page from URL (array_slice)
-        */
-
-        $thisDay = explode(".", $thisPage);
-        $thisDay = explode("_", $thisDay[0]);
-        /*  $thisDay =>
-                1. Split current page into array (explode)
-                    - $thisDay[0] = Digit
-                    - $thisDay[1] = Lesson
-                    - $thisDay[2] = Title
-        */
-
-        // echo '<pre>';
-        //     var_dump($thisPage);
-        //     var_dump($thisDay);
-        // echo '</pre>';
-        // die();
-
-        //$thisLesson = substr($thisDay[0], 6);
-        $thisLesson = str_replace("-", " ", $thisDay[2]);
-        /*  $thisLesson =>
-                1. Abstract lesson number from current page (substr)
-        */
-
-        $pageDir = $docRoot.'/'.$thisDir;
-        /*  $pageDir =>
-            1. Set page directory
-        */
-
-        $pageArray = scandir($pageDir);
-        if($pageArray !== false){
-            $pageArr = array();
-            foreach($pageArray as $page){
-                if($page == '.' || $page == '..' || substr($page, -strlen(".DS_Store")) === ".DS_Store") continue;
-                array_push($pageArr, $page);
+    class course {
+        var $url, $uri, $lessonPathsArray, $lessonPathVoid, $lessonFolder, $lessonTitle, $lessonFile, $lessonIcon;
+        function __construct(){
+            $this->url = $this->removeAscii( $_SERVER['DOCUMENT_ROOT'] ); // document root
+            $this->uri = $this->removeAscii( $_SERVER['REQUEST_URI'] ); // base uri
+            if( $this->uri != '/' && $this->uri != '/index.php' ){ // if NOT / or /index.php
+                $this->lessonPathsArray = explode( '/', $this->uri ); // break uri into array
+                $this->lessonPathVoid = array_shift( $this->lessonPathsArray ); // remove blank index 0
+                $this->lessonFolder = $this->lessonPathsArray[0]; // course folder
+                $this->lessonTitle = $this->lessonPathsArray[1]; // title folder
+                $this->lessonFile = $this->lessonPathsArray[2]; // lesson file
+                $this->lessonIcon = substr( $this->lessonFolder, 7 ); // lesson icon
             }
-            natsort($pageArr);
-            $pageArr = array_values($pageArr);
         }
-        /*  $pageArr =>
-            1. Get page directory ($pageDir)
-            2. Scan and create array (scandir)
-            3. Check that directory has files (if)
-            4. Create new empty $pageArr (array)
-            5. Loop through each page (foreach)
-            6. Check for unwanted pages ./, ../, .DS_STORE (if)
-            7. Push remaining pages into $pageArr (array_push)
-        */
-
-        $pageKey = array_search($thisPage, $pageArr);
-        /*  $pageKey =>
-            1. Get current page index (array_search)
-        */
-
-        $lastPage = end($pageArr);
-        /*  $lastPage =>
-                1. Get last page in $pageArr (end)
-        */
-
-        function bin($bin, $output){
-            echo '<a class="jsbin-embed" href="http://jsbin.com/'.$bin.'/embed?'.$output.'"></a>';
+        function dumper($toBeDumped){ echo '<pre>'; var_dump($toBeDumped); echo '</pre>'; } // formatted var_dump
+        function addAscii($string){return str_replace(' ', '%20', $string);} // replace spaces with %20
+        function removeAscii($string){return str_replace('%20', ' ', $string);} // replace %20 with spaces
+        function formatString($string, $true){
+            $str = explode( '.', $string )[1];
+            $upStr = preg_replace_callback('/[a-z]{4,}|\bi\b/i', function($match){
+                return ucfirst($match[0]);
+            }, $str);
+            if($true){
+                return explode( '.', $string )[0].': '.$upStr;
+            }
+            return $upStr;
+        } // strip title numbering and uppercase
+        function stripArray($array){
+            $newArray = [];
+            foreach($array as $a){
+                if($a == '.' || $a == '..' || $a == '.DS_Store' || $a == '.htaccess') continue;
+                array_push($newArray, $a);
+            }
+            return $this->natsortArray($newArray);
+        }
+        function natsortArray($array){
+            natsort($array);
+            $newArray = array_values($array);
+            return $newArray;
+        }
+        function get_lessonTitles(){
+            $titles = scandir($this->url.'/'.$this->lessonFolder.'/');
+            return $this->stripArray($titles);
+        }
+        function get_firstLessonFile(){
+            $titles = $this->get_lessonTitles();
+            $files = [];
+            foreach($titles as $key => $title){
+                $file = scandir($this->url.'/'.$this->lessonFolder.'/'.$title.'/');
+                $file = $this->stripArray($file);
+                array_push($files, $file[0]);
+            }
+            return $files;
+        }
+        function get_lessonFiles(){
+            $titles = $this->get_lessonTitles();
+            $files = [];
+            foreach($titles as $key => $title){
+                $file = scandir($this->url.'/'.$this->lessonFolder.'/'.$title.'/');
+                $file = $this->stripArray($file);
+                array_push($files, $file);
+            }
+            return $files;
+        }
+        function buildLessonSelect(){
+            echo '<select class="" name="chapNum">';
+            if( $this->uri != '/' && $this->uri != '/index.php' ){
+                foreach($this->get_firstLessonFile() as $key => $lesson){
+                    echo ($this->get_firstLessonFile()[$key] == $this->lessonFile) ?
+                        '<option data-url="/'.$this->lessonFolder.'/'.$this->get_lessonTitles()[$key].'/'.$lesson.'" selected>'.$this->formatString($lesson, true).'</option>' :
+                        '<option data-url="/'.$this->lessonFolder.'/'.$this->get_lessonTitles()[$key].'/'.$lesson.'">'.$this->formatString($lesson, true).'</option>';
+                }
+            }else{echo '<option selected>Select</option>';}
+            echo '</select>';
+        }
+        function buildLessonTitle(){
+            if( $this->uri != '/' && $this->uri != '/index.php' ){ echo $this->formatString( $this->lessonTitle, false ); }
+            else{ echo 'Daily Topics'; }
+        }
+        function buildLessonPaging(){
+            if( $this->uri != '/' && $this->uri != '/index.php' ){
+                $thisLessonArray = $this->stripArray( scandir( $this->url.'/'.$this->lessonFolder.'/'.$this->lessonTitle ) );
+                $pageKey = array_search( $this->lessonFile, $thisLessonArray );
+                $lastPage = end( $thisLessonArray );
+                echo ( $this->lessonFile == $thisLessonArray[0] ) ?
+                    '<a class="paginate disabled"><i class="material-icons">skip_previous</i> <span>prev</span></a>' :
+                    '<a class="paginate" href="/'.$this->lessonFolder.'/'.$this->lessonTitle.'/'.$thisLessonArray[$pageKey-1].'"><i class="material-icons">skip_previous</i> <span>prev</span></a>';
+                echo ( $this->lessonFile === $lastPage ) ?
+                    '<a class="paginate disabled"><span>next</span> <i class="material-icons">skip_next</i></a>' :
+                    '<a href="'.$thisLessonArray[$pageKey+1].'" class="paginate"><span>next</span> <i class="material-icons">skip_next</i></a>';
+            }else{echo '<a class="paginate disabled"><i class="material-icons">skip_previous</i> <span>prev</span></a><a class="paginate disabled"><span>next</span> <i class="material-icons">skip_next</i></a>';}
         }
     }
+    $course = new course;
 ?>

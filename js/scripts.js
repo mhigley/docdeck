@@ -1,5 +1,14 @@
 'use strict';
 
+var chaps = $('select'),
+    myForm = $('#myForm');
+chaps.on('change', getChap);
+
+function getChap(e){
+    var $thisOptUrl = $(this.selectedOptions).data('url');
+    window.location.href = $thisOptUrl;
+}
+
 $('.deck-select label').on('click', function(e){
     e.preventDefault();
     e.stopPropagation();
@@ -17,18 +26,17 @@ function getCourse(e){
             course = course.split('=').join('-');
             switch(course){
                 case 'course-bc1':
-                    course += '/01-01_lesson01_Intro-to-HTML.php';
+                    course += '/01.variables/01.what is a variable.php';
                     break;
                 case 'course-bc2':
-                    course += '/01-01_lesson01_??';
+                    course += '/01.variables/01.what is a variable.php';
                     break;
                 case 'course-js1':
-                    course += '/01-01_lesson01_Intro-to-Javascript.php';
+                    course += '/01.variables/01.what is a variable.php';
                     break;
                 default:
                     course += 'Good luck if this ever proves true. You\'ve screwed the pooch then!';
             }
-
             window.location.replace(course);
         }else{
             var $warn = $('#warn'),
@@ -42,7 +50,7 @@ var $body = $('body'),
     $btn = $('#asideToggle'),
     $aside = $('aside'),
     $slick = $('.sections'),
-    $asideToggleIcons = $('.fa-close, .fa-bars'),
+    $asideToggleIcons = $('.mi-close, .mi-menu'),
     $nav = $('.navigation'),
     $tip = $('.tip');
 
@@ -58,8 +66,8 @@ $slick.slick({
     infinite: false,
     adaptiveHeight: true,
     draggable: true,
-    nextArrow: '<button type="button" class="btn"><i class="fa fa-angle-right"></i></button>',
-    prevArrow: '<button type="button" class="btn"><i class="fa fa-angle-left"></i></button>'
+    nextArrow: '<button type="button" class="btn"><i class="material-icons">chevron_right</i></button>',
+    prevArrow: '<button type="button" class="btn"><i class="material-icons">chevron_left</i></button>'
 });
 
 function asideNav(slider, index){
@@ -73,12 +81,6 @@ $btn.on('click', function(){
     $asideToggleIcons.toggleClass('asideToggle');
 });
 
-$('.logout').on('click', function(){
-    eraseCookie('page');
-    window.location.replace('http://docdeck.matthewhigley.com/');
-    //window.location.replace('http://localhost/');
-});
-
 function createCookie(name,value,days) {
     if (days) {
         var date = new Date();
@@ -88,6 +90,12 @@ function createCookie(name,value,days) {
     else var expires = "";
     document.cookie = name+"="+value+expires+"; path=/";
 }
+
+$('.logout').on('click', function(){
+    eraseCookie('page');
+    //window.location.replace('http://docdeck.matthewhigley.com/');
+    window.location.replace('http://localhost/');
+});
 
 function eraseCookie(name) {
     createCookie(name,"",-1);

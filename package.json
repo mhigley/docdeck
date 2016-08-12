@@ -1,6 +1,6 @@
 {
   "name": "docdeck",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "All files except package.json included in template. Follow all instructions for new projects:",
   "main": "gulpfile.js",
   "scripts": {
